@@ -1,0 +1,30 @@
+body
+{
+What each selector does
+font-family: Arial;
+text-align: center;
+margin-top: 50px;
+}
+h1
+{
+}
+input
+{
+color: darkblue;
+body Arial font, centred text, 50px space at top
+h1 heading colour is dark blue
+input 10px inner padding, 250px wide
+button padding, and hand cursor on hover
+#weatherResult # = id selector; 30px gap above the result
+padding: 10px;
+width: 250px;
+}
+button
+{
+padding: 10px 20px;
+cursor: pointer;
+#weatherResult
+}
+{
+}
+margin-top: 30px;
