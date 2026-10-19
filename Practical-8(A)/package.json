@@ -1,0 +1,13 @@
+{
+  "name": "practical-8a",
+  "version": "1.0.0",
+  "description": "TypeScript - Introduction & Static Typing",
+  "main": "dist/todoLogic.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node dist/todoLogic.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
