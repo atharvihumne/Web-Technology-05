@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+            background-color: #f2f2f2;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px;
+        }
+        button {
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        th {
+            background: lightblue;
+        }
+        .delete {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Shopping Cart</h1>
+    <h2>Add Product</h2>
+    <form id="productForm">
+        <input type="text" id="name" placeholder="Product Name" required>
+        <input type="number" id="price" placeholder="Price" min="0.01" step="0.01" required>
+        <input type="number" id="quantity" placeholder="Quantity" min="1" step="1" required>
+        <button type="submit">Add Product</button>
+    </form>
+    <h2>Cart Items</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="cartItems"></tbody>
+    </table>
+    <h3>Product Names: <span id="names">None</span></h3>
+    <h3>Total Price: ₹<span id="total">0</span></h3>
+</div>
+<script>
+    // Array of product objects
+    let cart = [
+        { id: 1, name: "Laptop", price: 50000, quantity: 1 },
+        { id: 2, name: "Mouse", price: 800, quantity: 2 }
+    ];
+    let id = 3;
+    // Display cart items
+    function displayCart() {
+        let table = document.getElementById("cartItems");
+        table.innerHTML = "";
+        cart.forEach(function(product) {
+            table.innerHTML += `
+                <tr>
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>₹${product.price}</td>
+                    <td>${product.quantity}</td>
+                    <td>₹${product.price * product.quantity}</td>
+                    <td>
+                        <button class="delete"
+                            onclick="removeProduct(${product.id})">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+ // Display names using map()
+        let productNames = cart.map(function(product) {
+            return product.name;
+        });
+  document.getElementById("names").textContent =
+            productNames.length ? productNames.join(", ") : "Cart is empty";
+ // Calculate total using reduce()
+        let total = cart.reduce(function(sum, product) {
+            return sum + product.price * product.quantity;
+        }, 0);
+
+        document.getElementById("total").textContent = total.toFixed(2);
+    }
+    // Add product using push()
+    document.getElementById("productForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let name = document.getElementById("name").value.trim();
+        let price = Number(document.getElementById("price").value);
+        let quantity = Number(document.getElementById("quantity").value);
+        cart.push({
+            id: id++,
+            name: name,
+            price: price,
+            quantity: quantity
+        });
+
+        document.getElementById("productForm").reset();
+        displayCart();
+    });
+    // Remove product using filter()
+    function removeProduct(productId) {
+        cart = cart.filter(function(product) {
+            return product.id !== productId;
+        });
+        displayCart();
+    }
+    // Display initial products
+    displayCart();
+</script>
+</body>
+</html>
+
